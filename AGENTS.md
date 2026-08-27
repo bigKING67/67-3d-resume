@@ -15,13 +15,13 @@
 - `blender/`：3D 源文件。`blender/sen.blend` 是可编辑源，`web/public/models/me.glb` 是浏览器运行产物。
 - `tutor/`：上游改造与部署教程，仅作参考，不自动覆盖本项目决策。
 - `web/src/content/works/`：个人作品详情；这是项目内容，不因上游同步而覆盖或删除。
-- 博客是独立仓库：`/Users/gaoqian/Documents/sixseven/codeproject/myblog`。除非用户当前明确授权，不从本仓库修改、提交或部署博客。
+- 下游博客是独立仓库 [`bigKING67/blog`](https://github.com/bigKING67/blog)，本机路径为 `/Users/gaoqian/Documents/sixseven/codeproject/myblog`；它负责把固定简历 revision 发布到同域 `/resume/`。除非用户当前明确授权，不从本仓库修改、提交、推送或部署博客。
 
 ## 常用命令
 
 ```bash
 cd web
-npm install
+npm ci
 npm run dev        # http://localhost:5173
 npm run typecheck
 npm run lint
@@ -45,8 +45,9 @@ npm run preview
 - `web/src/data/focusPoints.ts` 是履历焦点顺序真源；变更履历条数时同步核对 `Resume.tsx`、GLB 锚点和滚动帧段。
 - 外部公司或工具品牌遵循“一品牌一枚可见 Logo”：不重复铺贴，不加无意义的白色矩形卡底，优先使用透明的品牌轮廓。
 - 个人表达型贴纸（如 `I ♥ HZNU`、`ANALYST`、`sixseven`、`BUILDER`）可以保留白色模切边；火奴当前使用官方绿色锁定版，除非明确重设计，不拆掉品牌底色。
-- 直接修改 `me.glb` 后必须提高 `Scene.tsx` 中模型查询参数以失效旧缓存，并验证 GLB 结构与非图片数据未意外变化。
-- 如果本机无法编辑 `blender/sen.blend`，要明确报告“Blender 源未同步”；未来从 Blender 重新导出前，必须重新落实本节贴纸合同。
+- 贴纸、几何、材质或对象变换的完整交付必须同时维护 `blender/sen.blend` 与 `web/public/models/me.glb`。重新打开 Blender 并导出后，核对节点、网格、材质、动画名称、嵌入图片和对象变换，防止可编辑源与运行产物漂移。
+- 直接修改 `me.glb` 只能作为明确标注的临时候选；如果本机无法同步 `blender/sen.blend`，状态必须是 `PARTIAL / Blender 源未同步`，不能宣称 3D 源已完整交付。
+- 更新 `me.glb` 后必须提高 `Scene.tsx` 中模型查询参数以失效旧缓存，并验证 GLB 结构与非图片数据未意外变化。
 
 ## 上游吸收
 
@@ -70,9 +71,27 @@ git fetch upstream
 - 推荐保持简历源码仓库独立，由博客发布流程消费一个已验证、固定 revision 的 `web/dist/` 并装配到博客 `dist/resume/`；不要把 React Three Fiber 源码直接并入 Astro 页面，也不要用 iframe 作为默认集成。
 - `web/vite.config.ts` 的 `base: './'` 是子目录部署合同。变更它之前必须验证 `/resume/` 下 HTML、JS、字体、HDR、GLB、图片和作品媒体的真实请求路径。
 
+## 下游博客发布合同
+
+- 生产入口是 `https://whois67.52671314.xyz/resume/`；Cloudflare Pages 的 Git 源仍是博客仓库，不是本仓库。简历仓库 push 成功不会单独触发生产更新。
+- 博客仓库的 `resume.lock.json` 是发布真源，只接受本仓库已审核、已推送的 40 位完整 commit SHA；不得填分支名、tag、短 SHA 或仅存在本机的 commit。
+- 博客的 `pnpm build:pages` 会获取 lock 指定 revision、在干净 detached checkout 中执行简历 `npm ci --include=dev`，再装配到博客 `dist/resume/`；该流程通过才证明固定 revision 可被消费。
+- 本机联调使用博客的 `pnpm build:with-resume`，默认消费 `../../play67/resume`。dirty checkout 的回执只能证明本机候选可装配，不能作为 Pages 可复现或生产发布证据。
+- 跨仓发布顺序固定为：简历验证 → 简历 scoped commit → 简历 push/远端一致 → 博客推进 `resume.lock.json` → `pnpm build:pages` → 博客 scoped commit → 博客 push → Pages 与自定义域名验证。
+- 两个仓库始终形成独立 commit，`commit`、`push`、推进 lock、部署和回滚分别授权。博客侧具体构建、回执、入口和回滚规则以其根级 `AGENTS.md` 为准，不在这里复制。
+- 简历回滚优先让博客把 lock 恢复到上一个已知可用 revision 后重新构建；不要手工拼接旧 `dist/resume/`，也不要为了让构建通过改成浮动 revision。
+
+## 依赖与安装脚本
+
+- Node.js 必须满足当前 Vite 的 engine；当前 Vite 7 要求 Node `^20.19.0 || >=22.12.0`，本机与 CI/Pages 都要核对真实版本。
+- 常规验证用 `npm ci`；只有明确更新依赖时才运行 `npm install` / `npm audit fix` 并审查 `package.json` 与 `package-lock.json` 的 scoped diff。
+- `allowScripts` 只精确批准当前构建需要的依赖和版本，禁止用 `npm approve-scripts --all` 扩大执行面。clean install 后运行 `npm approve-scripts --allow-scripts-pending --json`，不得把未审核脚本警告当作无关噪声。
+- 不用强制 override 掩盖 Three/React 生态兼容警告；涉及 React、Fiber、Drei、Three 或后处理链主版本时，作为一个完整迁移任务验证 GLB、滚动、相机、焦点、WebGL 和窄视口。
+
 ## 交付检查
 
 - 文档或治理变更：复核 instruction chain、链接、命令、Git 现场和 scoped diff。
 - GLB 或视觉变更：结构检查、`npm run lint`、`npm run build`、桌面与移动端真实页面、同类贴纸一致性检查。
 - 部署集成：同时验证 `/resume/`、刷新/深链、资源 200、缓存版本、移动端 WebGL 和返回博客入口；部署前保留可回滚的上一版 revision。
+- 跨仓发布：记录简历 SHA、博客 lock SHA、博客 SHA、`_resume-build.json` 回执、不可变 Pages 部署和自定义域名证据；任何缺失层都明确标为 `UNVERIFIED`。
 - 最终报告区分本地源码、构建产物、浏览器运行、远端仓库与生产站点证据。
