@@ -1,23 +1,22 @@
 import { motion } from 'framer-motion'
-import { ZooopLogo } from './ZooopLogo'
 import { SOCIAL_ICONS } from './SocialIcons'
 import { FOCUS_POINTS } from '../data/focusPoints'
 
 const SOCIAL_LINKS = [
   {
-    id: 'douyin',
-    label: '抖音',
-    href: 'https://www.douyin.com/user/MS4wLjABAAAAlmQDgHf0NlbsjrfWENm8LyrIikxSRRq7mzlzQSIStQJkV7Ju52B6A55zw5TUDU5d',
+    id: 'github',
+    label: 'GitHub',
+    href: 'https://github.com/bigKING67',
   },
   {
-    id: 'bilibili',
-    label: 'B站',
-    href: 'https://space.bilibili.com/275344092?spm_id_from=333.937.0.0',
+    id: 'email',
+    label: 'luqing671997@foxmail.com',
+    href: 'mailto:luqing671997@foxmail.com',
   },
   {
-    id: 'xiaohongshu',
-    label: '小红书',
-    href: 'https://www.xiaohongshu.com/user/profile/5ceba8c8000000000502fd69',
+    id: 'blog',
+    label: 'Blog',
+    href: 'https://whois67.52671314.xyz/',
   },
 ]
 
@@ -44,49 +43,72 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
     title: 'Résumé',
     entries: [
       {
-        period: '2013 – 2017',
-        place: 'Sun Yat-sen University',
-        role: 'B.S. in Software Engineering',
-      },
-      {
-        period: '2017 – 2020',
-        place: 'HOTSAR Studio · Shanghai',
-        role: 'Co-founder',
-        logo: { src: `${import.meta.env.BASE_URL}images/hotsar.jpg`, alt: 'HOTSAR' },
+        period: '2016 – 2020',
+        place: 'Hangzhou Normal University',
+        role: 'B.A. in International Business · Alibaba Business School',
         points: [
-          'Co-founder · team of 20+',
-          'Clients: Alibaba brands, Tencent, NetEase, DiDi, China Resources, McDonald’s…',
-          'Work: development / creative direction / animation / team management',
+          'GPA 3.47 / 4.0',
+          'Statistics · consumer behavior · marketing · Python · structured databases',
         ],
       },
       {
-        period: '2020 – 2025',
-        place: 'Bad Printer Studio · Shenzhen',
-        role: 'Founder',
-        logo: { src: `${import.meta.env.BASE_URL}images/bp.png`, alt: 'Bad Printer Studio' },
+        period: 'Tags',
+        place: 'Data Analyst · AI Builder',
+        role: 'Analyst · Builder',
         points: [
-          'Founder · team of 14',
-          'Clients: Honor of Kings / Trip.com / ByteDance / Kuaishou / VIVO / Tecno / Xiaomi / IM Motors…',
-          'Work: team management / creative direction / animation / development',
+          'Dashboards · modeling · reports · data strategy',
+          'AI DataHub · AI Agent · AI Craft · AI Builder',
+        ],
+      },
+      {
+        period: '2022 – 2023',
+        place: 'Honu Data · Hangzhou',
+        role: 'Agency side · where business thinking took root',
+        points: [
+          'Sports, skincare, food. 618 / D11, mix, growth — reading the business with data',
+          '618 calls reused on D11 · related GMV ~+30% YoY',
+          'Shapley / MTA / MMM · ROI ~+40% · conversion ~+30%',
+          'Vendor seat: you don’t hold the wheel. The craft is syncing judgment to someone else’s next move',
+        ],
+      },
+      {
+        period: '2023 – 2025',
+        place: 'SPES · Hangzhou',
+        role: 'Brand side · insight → strategy → action, with the business',
+        points: [
+          'Seeding, creators, Douyin commerce — close loop from insight to a move on the floor',
+          'Mix, D11, Douyin spill into Taobao search · new SKUs, price bands',
+          'The Second Half arrived. The analyst job was about to be rewritten — I saw it here',
         ],
       },
       {
         period: '2025 – Now',
-        place: 'Content Creator',
+        place: 'Groland · Hangzhou',
+        role: 'Data Analyst of the AGI era',
         groups: [
           {
-            heading: '小郑还挺忙',
-            logoImg: `${import.meta.env.BASE_URL}images/buzyzheng.png`,
-            sub: 'tech-DIY creator',
-            items: ['120K on Douyin · 87K on Bilibili · 23K on Xiaohongshu'],
+            heading: 'Yipinhui · China Gas New Retail',
+            sub: '2025.05 – 2025.12',
+            items: [
+              'After the brand seat: go find what analysis looks like in the AGI era',
+              'Left Dec 2025 — not to quit analysis, to take it to the next stop',
+            ],
+          },
+          {
+            heading: 'Groland · AI scalp anti-aging',
+            sub: '2025.12 – now',
+            items: [
+              'AI DataHub + AI team agent + AI Craft — the exploration made into daily tools',
+              'Still the same job: grow the business. Builder, because the loop is faster',
+            ],
             links: SOCIAL_LINKS,
           },
+          {
+            heading: 'luqing671997@foxmail.com',
+            link: 'mailto:luqing671997@foxmail.com',
+            sub: 'write me',
+          },
         ],
-      },
-      {
-        period: '2026 – Now',
-        place: 'Indie Developer',
-        groups: [{ logo: 'zooop', sub: 'AI creation platform', link: 'https://zooop.ai/' }],
       },
     ],
   },
@@ -94,49 +116,69 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
     title: 'Résumé',
     entries: [
       {
-        period: '2013 – 2017',
-        place: '中山大学',
-        role: '软件工程 · 本科',
+        period: '2016 – 2020',
+        place: '杭州师范大学',
+        role: '国际商务 · 本科 · 阿里巴巴商学院',
+        points: ['GPA 3.47 / 4.0', '统计学 · 消费者行为 · 市场营销 · Python · 结构化数据库'],
       },
       {
-        period: '2017 – 2020',
-        place: 'HOTSAR 工作室 · 上海',
-        role: '联合创始人',
-        logo: { src: `${import.meta.env.BASE_URL}images/hotsar.jpg`, alt: 'HOTSAR' },
+        period: '标签',
+        place: '数据分析师 · AI Builder',
+        role: 'Analyst · Builder',
         points: [
-          '联合创始人，团队人数 20+',
-          '服务客户：阿里系品牌、腾讯、网易、滴滴、华润、麦当劳…',
-          '负责：技术开发 / 创意策划 / 动画制作 / 团队管理',
+          '可视化看板 · 挖掘建模 · 分析报告 · 数据策略',
+          'AI Datahub · AI Agent · AI Craft · AI Builder',
         ],
       },
       {
-        period: '2020 – 2025',
-        place: '坏打印机工作室 · 深圳',
-        role: '创始人',
-        logo: { src: `${import.meta.env.BASE_URL}images/bp.png`, alt: '坏打印机工作室' },
+        period: '2022 – 2023',
+        place: '火奴数据 · 杭州',
+        role: '乙方 · 业务思维是在这儿长出来的',
         points: [
-          '创始人，团队人数 14',
-          '服务客户：王者荣耀 / 携程 / 字节 / 快手 / VIVO / 传音 / 小米…',
-          '负责：团队管理 / 创意策划 / 动画制作 / 技术开发',
+          '运动、护肤、食品。618 / D11、组合、增长，用数据看生意',
+          '618 的判断拿去打 D11 · 相关生意同比约 +30%',
+          '夏普利 / MTA / MMM · ROI 约 +40% · 转化约 +30%',
+          '服务方不握方向盘：要把判断对齐到对方的下一步，分析才落得下去',
+        ],
+      },
+      {
+        period: '2023 – 2025',
+        place: 'SPES · 杭州',
+        role: '甲方 · 洞察 → 策略 → 动作',
+        points: [
+          '种草、达人、抖音电商——跟业务把洞察做成落地动作',
+          '投放组合、D11、抖音外溢淘宝搜索 · 新品与价格带',
+          'AI 下半场到了。数据分析这份工也要被改写——是在这儿看见的',
         ],
       },
       {
         period: '2025 – 至今',
-        place: '自媒体博主',
+        place: 'Groland · 杭州',
+        role: 'Data Analyst of the AGI era',
         groups: [
           {
-            heading: '小郑还挺忙',
-            logoImg: `${import.meta.env.BASE_URL}images/buzyzheng.png`,
-            sub: '科技 DIY 博主',
-            items: ['抖音 12 万 · B站 8.7 万 · 小红书 2.3 万 关注'],
+            heading: '壹品慧 · 中国燃气新零售',
+            sub: '2025.05 – 2025.12',
+            items: [
+              '从甲方再往前走：去探 AGI 时代的分析长什么样',
+              '12 月离开——不是丢掉分析，是把分析带到下一站',
+            ],
+          },
+          {
+            heading: 'Groland · AI 科技头皮抗衰',
+            sub: '2025.12 – 至今',
+            items: [
+              'AI DataHub + AI team agent + AI Craft——探索收成每天能用的东西',
+              '还是同一件事：增长。做 Builder，因为闭环更快',
+            ],
             links: SOCIAL_LINKS,
           },
+          {
+            heading: 'luqing671997@foxmail.com',
+            link: 'mailto:luqing671997@foxmail.com',
+            sub: '写信',
+          },
         ],
-      },
-      {
-        period: '2026 – 至今',
-        place: '独立开发',
-        groups: [{ logo: 'zooop', sub: 'AI 创作平台', link: 'https://zooop.ai/' }],
       },
     ],
   },
@@ -157,24 +199,18 @@ const itemV = {
 }
 
 function Group({ group }: { group: ResumeGroup }) {
-  const heading =
-    group.logo === 'zooop' ? (
-      <a
-        className="zooop-logo-link"
-        href={group.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="ZOOOP"
-      >
-        <ZooopLogo className="zooop-logo" animated />
-      </a>
-    ) : group.link ? (
-      <a className="about-link" href={group.link} target="_blank" rel="noopener noreferrer">
-        {group.heading}
-      </a>
-    ) : (
-      <span>{group.heading}</span>
-    )
+  const heading = group.link ? (
+    <a
+      className="about-link"
+      href={group.link}
+      target={group.link.startsWith('mailto:') ? undefined : '_blank'}
+      rel={group.link.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+    >
+      {group.heading}
+    </a>
+  ) : (
+    <span>{group.heading}</span>
+  )
 
   return (
     <motion.div className="tl-group" variants={itemV}>
@@ -203,8 +239,8 @@ function Group({ group }: { group: ResumeGroup }) {
                 key={l.id}
                 className="tl-logo"
                 href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={l.href.startsWith('mailto:') ? undefined : '_blank'}
+                rel={l.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                 aria-label={l.label}
                 title={l.label}
               >

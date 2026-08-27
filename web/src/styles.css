@@ -249,6 +249,7 @@ canvas {
 .hm-bl {
   bottom: calc(var(--m) + 16px);
   left: calc(var(--m) + 20px);
+  letter-spacing: 0.16em;
 }
 .hm-right {
   top: 50%;
@@ -287,13 +288,19 @@ canvas {
 }
 
 .about-body {
-  margin: 0.5em auto 0;
-  max-width: min(660px, 88vw);
+  margin: 0.55em auto 0;
+  max-width: min(640px, 86vw);
   font-family: 'Cormorant Upright', 'Chiron GoRound TC', 'PingFang SC', 'Microsoft YaHei', serif;
   font-weight: 500;
-  font-size: clamp(8px, 1.05vw, 16px);
-  line-height: 1.2;
+  font-size: clamp(13px, 1.35vw, 18px);
+  line-height: 1.45;
   color: var(--ink);
+  text-wrap: pretty;
+}
+
+.about-body + .about-body {
+  margin-top: 0.35em;
+  opacity: 0.88;
 }
 
 /* 正文内 ZOOOP 链接：容器是 pointer-events:none，链接需单独开启可点 */

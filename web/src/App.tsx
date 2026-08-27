@@ -24,15 +24,17 @@ type Lang = 'en' | 'zh'
 
 const COPY = {
   en: {
-    title: 'About Sen',
+    title: 'About 67',
     paragraphs: [
-      "I'm Sen — a creative technologist living where code meets art. I spend my days around coding, creativity, playful interaction & design, and CG work. I love studying and combining skills across different fields — to create, and to explore more possibilities.",
+      'Talk is cheap. Taste is important. Action speaks louder.',
+      'From Data Analyst to AI Builder',
     ],
   },
   zh: {
-    title: 'About Sen',
+    title: 'About 67',
     paragraphs: [
-      '我是 Sen——一个游走在代码与艺术之间的创意技术人。我常年和 Coding、创意、有趣的交互 & 设计、CG 创作等打交道，喜欢研究并组合不同领域的技能，来创造并探索更多可能性。',
+      'Talk is cheap. Taste is important. Action speaks louder.',
+      'From Data Analyst to AI Builder',
     ],
   },
 }
@@ -170,12 +172,12 @@ export default function App() {
         <span className="hero-mark bl">+</span>
         <span className="hero-mark br">+</span>
         <div className="hero-meta hm-tl">
-          <span className="hm-name">Sen Zheng 郑越升</span>
-          <span>Creative Technologist</span>
+          <span className="hm-name">67</span>
+          <span>sixseven · 陆庆</span>
         </div>
         <div className="hero-meta hm-tr">Portfolio — 2026</div>
-        <div className="hero-meta hm-bl">Code · Art · Play</div>
-        <div className="hero-meta hm-right">Based in Shenzhen</div>
+        <div className="hero-meta hm-bl">Analyst · Builder · AGI</div>
+        <div className="hero-meta hm-right">Groland · Hangzhou</div>
       </motion.div>
 
       {/* 全屏胶片噪点蒙层（multiply 混合） */}
