@@ -59,12 +59,3 @@ export function BlogIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-
-export const SOCIAL_ICONS = {
-  douyin: DouyinIcon,
-  bilibili: BilibiliIcon,
-  xiaohongshu: XiaohongshuIcon,
-  github: GithubIcon,
-  email: MailIcon,
-  blog: BlogIcon,
-}

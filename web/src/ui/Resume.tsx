@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { SOCIAL_ICONS } from './SocialIcons'
+import { SOCIAL_ICONS } from './socialIconMap'
 import { FOCUS_POINTS } from '../data/focusPoints'
 
 const SOCIAL_LINKS = [

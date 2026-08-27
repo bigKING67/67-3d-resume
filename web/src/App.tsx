@@ -1,24 +1,9 @@
-import { Suspense, useRef, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { lazy, Suspense, useRef } from 'react'
 import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
-import * as THREE from 'three'
-import Scene from './scene/Scene'
-import NoiseOverlay from './ui/NoiseOverlay'
 import Resume from './ui/Resume'
 import Works from './ui/Works'
-import LoadingScreen from './ui/LoadingScreen'
-import { useStore } from './store'
 
-function Backdrop() {
-  // 点击空白处收起详情
-  const setActive = useStore((s) => s.setActive)
-  return (
-    <mesh position={[0, 0, -40]} onClick={() => setActive(null)}>
-      <planeGeometry args={[600, 300]} />
-      <meshBasicMaterial transparent opacity={0} depthWrite={false} />
-    </mesh>
-  )
-}
+const SceneExperience = lazy(() => import('./scene/SceneExperience'))
 
 type Lang = 'en' | 'zh'
 
@@ -85,16 +70,30 @@ function Hero({ lang, cueOpacity }: { lang: Lang; cueOpacity: MotionValue<number
   )
 }
 
-function LangToggle({ lang, onToggle }: { lang: Lang; onToggle: () => void }) {
+function SceneChunkFallback() {
+  const radius = 34
+  const circumference = 2 * Math.PI * radius
+
   return (
-    <button className="lang-toggle" onClick={onToggle} aria-label="切换语言 / Switch language">
-      {lang === 'en' ? '中文' : 'EN'}
-    </button>
+    <div className="loading-screen" aria-hidden="true">
+      <div className="loading-ring">
+        <svg viewBox="0 0 80 80">
+          <circle className="lr-track" cx="40" cy="40" r={radius} />
+          <circle
+            className="lr-arc"
+            cx="40"
+            cy="40"
+            r={radius}
+            style={{ strokeDasharray: circumference, strokeDashoffset: circumference }}
+          />
+        </svg>
+      </div>
+    </div>
   )
 }
 
 export default function App() {
-  const [lang, setLang] = useState<Lang>('zh')
+  const lang: Lang = 'zh'
   const { scrollY } = useScroll()
   // 作品区蒙层：以作品区顶部从视口底进入到视口中部的进度，驱动 3D 渐暗 + 模糊
   const worksRef = useRef(null)
@@ -107,13 +106,10 @@ export default function App() {
     [0, 1],
     ['rgba(8, 11, 18, 0)', 'rgba(8, 11, 18, 0.41)'] // 压暗减半（原 0.82）
   )
-  const fogBlur = useTransform(worksProgress, [0, 1], ['blur(0px)', 'blur(10px)'])
   // 滚动渐暗：离开首屏后压暗 3D 场景，保证履历文字可读
   const scrimOpacity = useTransform(scrollY, [0, 520], [0, 0.4])
   // 首屏滚动提示随之淡出
   const cueOpacity = useTransform(scrollY, [0, 160], [1, 0])
-  // 首屏底部渐变底色：开始滑动后淡出
-  const heroGradientOpacity = useTransform(scrollY, [0, 240], [1, 0])
   // 磨砂右轨：进入履历区后淡入（首屏不磨砂）
   const vh = typeof window !== 'undefined' ? window.innerHeight : 800
   const railOpacity = useTransform(scrollY, [vh * 0.5, vh * 1.1], [0, 1])
@@ -122,24 +118,10 @@ export default function App() {
 
   return (
     <>
-      {/* 加载遮罩：模型全部加载完成前覆盖全屏，完成后淡出 */}
-      <LoadingScreen />
-
-      {/* 固定的 3D 背景 */}
-      <div className="scene-bg">
-        <Canvas
-          shadows={{ type: THREE.PCFShadowMap }}
-          dpr={[1, 1.5]}
-          camera={{ position: [0, 5, 19], fov: 39, near: 0.1, far: 500 }}
-          gl={{ antialias: false, stencil: false, depth: true, toneMapping: THREE.ACESFilmicToneMapping }}
-        >
-          <color attach="background" args={['#0a0e16']} />
-          <Suspense fallback={null}>
-            <Backdrop />
-            <Scene />
-          </Suspense>
-        </Canvas>
-      </div>
+      {/* 3D 渲染栈异步加载，先让 HTML 首屏和轻量加载环完成初始化。 */}
+      <Suspense fallback={<SceneChunkFallback />}>
+        <SceneExperience />
+      </Suspense>
 
       {/* 滚动渐暗蒙层 */}
       <motion.div className="scrim" style={{ opacity: scrimOpacity }} aria-hidden="true" />
@@ -161,9 +143,6 @@ export default function App() {
         aria-hidden="true"
       /> */}
 
-      {/* 中英切换暂时隐藏，默认中文 */}
-      {/* <LangToggle lang={lang} onToggle={() => setLang((l) => (l === 'en' ? 'zh' : 'en'))} /> */}
-
       {/* 首屏装饰：发丝内框 + 四角定位标 + 角标元数据（随滚动淡出） */}
       <motion.div className="hero-chrome" style={{ opacity: heroChromeOpacity }} aria-hidden="true">
         <div className="hero-frame" />
@@ -179,9 +158,6 @@ export default function App() {
         <div className="hero-meta hm-bl">Analyst · Builder · AGI</div>
         <div className="hero-meta hm-right">Groland · Hangzhou</div>
       </motion.div>
-
-      {/* 全屏胶片噪点蒙层（multiply 混合） */}
-      <NoiseOverlay />
 
       {/* 可滚动内容 */}
       <main className="content">
