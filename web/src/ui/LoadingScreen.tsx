@@ -1,12 +1,60 @@
-import { useEffect, useRef, useState } from 'react'
-import { useProgress } from '@react-three/drei'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { DefaultLoadingManager } from 'three'
 
-// 全屏加载遮罩：读取 three LoadingManager 进度（useProgress），
+let lastCompletedTotal = 0
+let progressSnapshot = 0
+const progressListeners = new Set<() => void>()
+
+function publishProgress(progress: number) {
+  const nextProgress = Number.isFinite(progress) ? Math.min(Math.max(progress, 0), 100) : 100
+  if (nextProgress === progressSnapshot) return
+
+  progressSnapshot = nextProgress
+  progressListeners.forEach((listener) => listener())
+}
+
+function getBatchProgress(loaded: number, total: number) {
+  const batchTotal = total - lastCompletedTotal
+  if (batchTotal <= 0) return 100
+  return ((loaded - lastCompletedTotal) / batchTotal) * 100
+}
+
+// Scene.tsx starts GLTF preloading during module evaluation, so the manager hooks
+// must be installed here rather than in a React effect that would run too late.
+DefaultLoadingManager.onStart = (_item, loaded, total) => {
+  publishProgress(getBatchProgress(loaded, total))
+}
+DefaultLoadingManager.onProgress = (_item, loaded, total) => {
+  if (loaded === total) {
+    lastCompletedTotal = total
+    publishProgress(100)
+    return
+  }
+  publishProgress(getBatchProgress(loaded, total))
+}
+DefaultLoadingManager.onLoad = () => {
+  publishProgress(100)
+}
+
+function subscribeToProgress(listener: () => void) {
+  progressListeners.add(listener)
+  return () => progressListeners.delete(listener)
+}
+
+function getProgressSnapshot() {
+  return progressSnapshot
+}
+
+function useLoadingProgress() {
+  return useSyncExternalStore(subscribeToProgress, getProgressSnapshot, getProgressSnapshot)
+}
+
+// 全屏加载遮罩：读取 three DefaultLoadingManager 进度，
 // 模型/贴图全部加载完（进度到过 100）后淡出并卸载，确保进入时场景已就绪。
 // 纯动态 UI：随真实进度填充的旋转圆环，无文字。
 // 用 CSS 过渡 + setTimeout 控制淡出/卸载（不依赖 rAF，后台/离屏也可靠）。
 export default function LoadingScreen() {
-  const { progress } = useProgress()
+  const progress = useLoadingProgress()
   // reached：进度是否到过 100%（单向 false→true，避免分批加载的抖动）
   const [reached, setReached] = useState(false)
   const [hiding, setHiding] = useState(false) // 开始淡出
