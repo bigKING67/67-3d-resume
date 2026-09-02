@@ -42,7 +42,7 @@ function SectionCard({
   const [coverError, setCoverError] = useState(false)
   const cover = SECTION_COVERS[section.id]
   return (
-    <div className="wk-card">
+    <div className={`wk-card${section.layout === 'compact' ? ' is-compact' : ''}`}>
       <div className="wk-card-head">
         <span className="wk-card-no">{section.no}</span>
         <h3 className="wk-card-title">{section.title}</h3>
@@ -50,7 +50,13 @@ function SectionCard({
       </div>
       <div className="wk-card-cover">
         {cover && !coverError ? (
-          <img src={cover} alt="" onError={() => setCoverError(true)} />
+          <img
+            src={cover}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            onError={() => setCoverError(true)}
+          />
         ) : (
           <div className="wk-card-cover-ph" aria-hidden="true">
             <span className="wk-card-cover-no">{section.no}</span>
@@ -153,7 +159,16 @@ function WorkDetail({
 
         {banner && !bannerError ? (
           <div className="wk-detail-banner">
-            <img src={banner} alt={title} onError={() => setBannerError(true)} />
+            <picture>
+              {doc?.bannerMobile && <source media="(max-width: 640px)" srcSet={doc.bannerMobile} />}
+              <img
+                src={banner}
+                alt={title}
+                loading="eager"
+                decoding="async"
+                onError={() => setBannerError(true)}
+              />
+            </picture>
           </div>
         ) : (
           <div className="wk-detail-banner is-ph" aria-hidden="true">

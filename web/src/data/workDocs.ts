@@ -2,20 +2,22 @@
 //
 // frontmatter（--- 之间）字段（均可选）：
 //   title   标题（缺省回退列表里的作品名）
-//   banner  顶部 banner 图路径（如 /works/guqin/banner.jpg；缺省用渐变占位）
+//   banner        顶部 banner 图路径（如 ./works/guqin/banner.jpg；缺省用渐变占位）
+//   bannerMobile  可选的窄屏 banner 图路径（缺省继续使用 banner）
 //   year    年份
 //   role    角色 / 担当
 //   tags    标签数组：[互动项目, 虎啸奖]
 //   link    外链（“访问作品”按钮）
 // 正文（frontmatter 之后）写 markdown：文字 / 图 ![](...) / 视频 <video src=...>。
 //
-// 资源（图/视频）放到 public/works/ 下，用 /works/... 绝对路径引用。
+// 资源（图/视频）放到 public/works/ 下，用 ./works/... 相对构建路径引用。
 // 列表（works.ts 的 item）通过 `slug` 关联到此处的 md；没有 slug 的 item 仍走占位详情。
 
 export interface WorkDoc {
   slug: string
   title?: string
   banner?: string
+  bannerMobile?: string
   year?: string
   role?: string
   tags?: string[]

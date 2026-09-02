@@ -12,6 +12,21 @@ dist-ssr
 # 仅保留板块封面占位图（public/works/covers/），其余媒体请自行放置或走 CDN。
 public/works/*
 !public/works/covers/
+!public/works/agent/
+public/works/agent/*
+!public/works/agent/cover.webp
+!public/works/agent/pi-sdk-agent-banner.webp
+!public/works/agent/pi-sdk-agent-mobile.webp
+!public/works/agent/team-agent-banner.webp
+!public/works/agent/team-agent-mobile.webp
+!public/works/agent/openviking-banner.webp
+!public/works/agent/openviking-mobile.webp
+!public/works/agent/work-chat-banner.webp
+!public/works/agent/work-chat-mobile.webp
+!public/works/agent/agent-governance-banner.webp
+!public/works/agent/agent-governance-mobile.webp
+!public/works/agent/deep-research-banner.webp
+!public/works/agent/deep-research-mobile.webp
 !public/works/analysis/
 public/works/analysis/*
 !public/works/analysis/cover.webp
