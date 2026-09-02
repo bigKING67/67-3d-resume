@@ -19,6 +19,7 @@ export interface WorkSection {
   no: string
   title: string
   tagline: string
+  layout?: 'standard' | 'compact'
   items?: WorkListItem[]
   groups?: WorkGroup[]
   awards?: string[]
@@ -134,13 +135,17 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
         no: '04',
         title: 'Data Analysis',
         tagline: '没有这段，前面都是装饰',
+        layout: 'compact',
         items: [
+          { name: '抖音 Shapley 归因', meta: '24 万旅程 · 4 触点', slug: 'douyin-shapley' },
+          { name: '全域电商 MMM', meta: '156 周 × 12 区域', slug: 'omnichannel-mmm' },
+          { name: 'KANO 需求分析', meta: '问卷 / 评论分层', slug: 'kano-demand' },
+          { name: '小红书内容机会地图', meta: '多模态排序 · 数据待授权', slug: 'xiaohongshu-content' },
+          { name: '抖音素材诊断', meta: '真实 TOP1000 · 模型待训练', slug: 'douyin-creative' },
           { name: '大促规划与复盘', meta: '618 → D11', slug: 'promo-review' },
-          { name: '多渠道组合', meta: 'MTA / MMM', slug: 'channel-mix' },
           { name: '0→1 新品', meta: '盈亏平衡 −30%', slug: 'new-product' },
-          { name: '经营看板', meta: '先会看，才会装', slug: 'dashboard' },
         ],
-        footer: '品牌方 · ISV · 新零售 · 这是手感，不是证书',
+        footer: '合成真值验证 · 授权数据审计 · 未通过门禁不输出结论',
       },
     ],
   },
@@ -238,20 +243,26 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
         no: '04',
         title: 'Data Analysis',
         tagline: 'without this, the rest is décor',
+        layout: 'compact',
         items: [
+          { name: 'Douyin Shapley attribution', meta: '240K journeys · 4 touchpoints', slug: 'douyin-shapley' },
+          { name: 'Omnichannel ecommerce MMM', meta: '156 weeks × 12 geos', slug: 'omnichannel-mmm' },
+          { name: 'KANO demand analysis', meta: 'survey / review separation', slug: 'kano-demand' },
+          { name: 'Xiaohongshu opportunity map', meta: 'multimodal ranking · data pending', slug: 'xiaohongshu-content' },
+          { name: 'Douyin creative diagnosis', meta: 'real Top 1000 · model pending', slug: 'douyin-creative' },
           { name: 'Promo planning & reviews', meta: '618 → D11', slug: 'promo-review' },
-          { name: 'Channel mix', meta: 'MTA / MMM', slug: 'channel-mix' },
           { name: '0→1 launches', meta: 'payback −30%', slug: 'new-product' },
-          { name: 'Operating boards', meta: 'see first, then install', slug: 'dashboard' },
         ],
-        footer: 'Brand · ISV · new retail · feel, not a certificate',
+        footer: 'Synthetic truth tests · authorized audits · no claims before gates pass',
       },
     ],
   },
 }
 
 // 板块配图。原作者封面不复用；缺图时左栏走编号占位。
-export const SECTION_COVERS: Record<string, string> = {}
+export const SECTION_COVERS: Record<string, string> = {
+  trade: `${import.meta.env.BASE_URL}works/analysis/cover.webp`,
+}
 
 export function sectionCount(section: WorkSection): number {
   if (section.items) return section.items.length

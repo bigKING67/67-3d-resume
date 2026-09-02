@@ -12,6 +12,14 @@ dist-ssr
 # 仅保留板块封面占位图（public/works/covers/），其余媒体请自行放置或走 CDN。
 public/works/*
 !public/works/covers/
+!public/works/analysis/
+public/works/analysis/*
+!public/works/analysis/cover.webp
+!public/works/analysis/*-banner.webp
+!public/works/analysis/*-mobile.webp
+!public/works/analysis/*-value.webp
+!public/works/analysis/*-system.webp
+!public/works/analysis/*-evidence.webp
 
 # 压缩脚本日志
 scripts/compress-media.log
