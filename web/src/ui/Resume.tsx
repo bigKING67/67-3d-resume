@@ -53,11 +53,11 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
       },
       {
         period: 'Tags',
-        place: 'Data Analyst · AI Builder',
-        role: 'Analyst · Builder',
+        place: 'AI Builder · Data Analyst',
+        role: 'Builder · Analyst',
         points: [
-          'Dashboards · modeling · reports · data strategy',
           'AI DataHub · AI Agent · AI Craft · AI Builder',
+          'Dashboards · modeling · reports · data strategy',
         ],
       },
       {
@@ -84,14 +84,14 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
       {
         period: '2025 – Now',
         place: 'Groland · Hangzhou',
-        role: 'Data Analyst of the AGI era',
+        role: 'AI Builder & Analyst',
         groups: [
           {
             heading: 'Yipinhui · China Gas New Retail',
             sub: '2025.05 – 2025.12',
             items: [
               'After the brand seat: go find what analysis looks like in the AGI era',
-              'Left Dec 2025 — not to quit analysis, to take it to the next stop',
+              'With tighter boundaries in a state-owned setting, I moved brand-side to put more AI use cases into real business workflows',
             ],
           },
           {
@@ -99,7 +99,7 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
             sub: '2025.12 – now',
             items: [
               'AI DataHub + AI team agent + AI Craft — the exploration made into daily tools',
-              'Still the same job: grow the business. Builder, because the loop is faster',
+              'An AI Builder for the business — because the loop closes faster',
             ],
             links: SOCIAL_LINKS,
           },
@@ -123,11 +123,11 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
       },
       {
         period: '标签',
-        place: '数据分析师 · AI Builder',
-        role: 'Analyst · Builder',
+        place: 'AI Builder · 数据分析师',
+        role: 'Builder · Analyst',
         points: [
-          '可视化看板 · 挖掘建模 · 分析报告 · 数据策略',
           'AI Datahub · AI Agent · AI Craft · AI Builder',
+          '可视化看板 · 挖掘建模 · 分析报告 · 数据策略',
         ],
       },
       {
@@ -154,14 +154,14 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
       {
         period: '2025 – 至今',
         place: 'Groland · 杭州',
-        role: 'Data Analyst of the AGI era',
+        role: 'AI Builder & Analyst',
         groups: [
           {
             heading: '壹品慧 · 中国燃气新零售',
             sub: '2025.05 – 2025.12',
             items: [
               '从甲方再往前走：去探 AGI 时代的分析长什么样',
-              '12 月离开——不是丢掉分析，是把分析带到下一站',
+              '国企场景边界较多，转向品牌一线，让更多 AI 场景真正落到业务里',
             ],
           },
           {
@@ -169,7 +169,7 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
             sub: '2025.12 – 至今',
             items: [
               'AI DataHub + AI team agent + AI Craft——探索收成每天能用的东西',
-              '还是同一件事：增长。做 Builder，因为闭环更快',
+              '做业务的 AI Builder，因为闭环更快。',
             ],
             links: SOCIAL_LINKS,
           },
