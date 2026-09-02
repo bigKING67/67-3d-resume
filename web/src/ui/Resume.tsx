@@ -46,13 +46,9 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
         period: '2016 – 2020',
         place: 'Hangzhou Normal University',
         role: 'B.A. in International Business · Alibaba Business School',
-        points: [
-          'GPA 3.47 / 4.0',
-          'Statistics · consumer behavior · marketing · Python · structured databases',
-        ],
       },
       {
-        period: 'Tags',
+        period: 'Role',
         place: 'AI Builder · Data Analyst',
         role: 'Builder · Analyst',
         points: [
@@ -119,10 +115,9 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
         period: '2016 – 2020',
         place: '杭州师范大学',
         role: '国际商务 · 本科 · 阿里巴巴商学院',
-        points: ['GPA 3.47 / 4.0', '统计学 · 消费者行为 · 市场营销 · Python · 结构化数据库'],
       },
       {
-        period: '标签',
+        period: '角色',
         place: 'AI Builder · 数据分析师',
         role: 'Builder · Analyst',
         points: [

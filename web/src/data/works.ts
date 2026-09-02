@@ -69,7 +69,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
           { name: 'AI 分析', meta: '人定问题，模型写判断', slug: 'ai-analysis' },
           { name: '内容资产', meta: '素材对得上投放', slug: 'content-assets' },
         ],
-        footer: 'Vite · Rust · PostgreSQL · Prefect · 真柜台，不是演示',
+        footer: '统一业务事实 · 看清经营变化 · 让团队更快行动',
       },
       {
         id: 'agent',
@@ -96,6 +96,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
             link: 'https://github.com/bigKING67/browser67',
           },
         ],
+        footer: '复杂任务能分工 · 团队经验可复用 · 协作过程有边界',
       },
       {
         id: 'craft',
@@ -128,7 +129,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
             link: 'https://github.com/bigKING67/commerce-growth-os',
           },
         ],
-        footer: 'GitHub / bigKING67 · 自用，也给团队用',
+        footer: '专业判断可复用 · 复杂工作有标准 · 团队交付更稳定',
       },
       {
         id: 'trade',
@@ -145,7 +146,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
           { name: '大促规划与复盘', meta: '618 → D11', slug: 'promo-review' },
           { name: '0→1 新品', meta: '盈亏平衡 −30%', slug: 'new-product' },
         ],
-        footer: '合成真值验证 · 授权数据审计 · 未通过门禁不输出结论',
+        footer: '看清问题 · 验证判断 · 把数据变成业务动作',
       },
     ],
   },
@@ -177,7 +178,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
           { name: 'AI analysis', meta: 'humans ask, models judge', slug: 'ai-analysis' },
           { name: 'Content assets', meta: 'creatives that match spend', slug: 'content-assets' },
         ],
-        footer: 'Vite · Rust · PostgreSQL · Prefect · shop floor, not a demo',
+        footer: 'Unify business facts · see the business clearly · help teams act faster',
       },
       {
         id: 'agent',
@@ -204,6 +205,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
             link: 'https://github.com/bigKING67/browser67',
           },
         ],
+        footer: 'Delegate complex work · reuse team experience · keep collaboration bounded',
       },
       {
         id: 'craft',
@@ -236,7 +238,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
             link: 'https://github.com/bigKING67/commerce-growth-os',
           },
         ],
-        footer: 'GitHub / bigKING67 · personal, then team',
+        footer: 'Reuse expert judgment · standardize complex work · make delivery more consistent',
       },
       {
         id: 'trade',
@@ -253,7 +255,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
           { name: 'Promo planning & reviews', meta: '618 → D11', slug: 'promo-review' },
           { name: '0→1 launches', meta: 'payback −30%', slug: 'new-product' },
         ],
-        footer: 'Synthetic truth tests · authorized audits · no claims before gates pass',
+        footer: 'See the problem · test the judgment · turn data into action',
       },
     ],
   },
