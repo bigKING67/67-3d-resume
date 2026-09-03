@@ -11,7 +11,6 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes('/node_modules/three/')) return 'three-core'
           if (id.includes('/node_modules/@react-three/fiber/')) return 'react-three-fiber'
-          if (id.includes('/node_modules/@react-three/drei/')) return 'react-three-drei'
           if (
             id.includes('/node_modules/@react-three/postprocessing/') ||
             id.includes('/node_modules/postprocessing/')
@@ -19,10 +18,11 @@ export default defineConfig({
         },
       },
     },
-    // three.module.js is an indivisible async vendor module (~687 kB minified).
+    // three.module.js is an indivisible async vendor module (~732 kB minified
+    // with the currently locked Three release).
     // Keep the warning calibrated just above that audited boundary; the initial
     // application and the remaining 3D integration layers stay independently split.
-    chunkSizeWarningLimit: 700,
+    chunkSizeWarningLimit: 750,
   },
   server: { host: true, port: 5173 },
 })
