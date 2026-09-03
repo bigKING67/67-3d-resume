@@ -26,6 +26,15 @@
 
 这张表只证明上述日期的只读审计结果。以后判断“是否最新”必须重新 fetch/查询，不能沿用旧 SHA。
 
+### 2026-09-03 3D 公司贴纸与镜头适配
+
+本轮按用户确认执行 `adapt`，不是整文件覆盖：
+
+- Groland 使用官网当前声明的白底 favicon；火奴使用官网声明的青蓝圆形 `HN` favicon；六七个人 Agent Logo 复用左脸原 `BUILDER / sticker10` 曲面，右脸 `sticker1 / ANALYST` 及 Claude—`ANALYST`—Codex 组合保持不变。
+- 火奴、SPES、Groland 保持固定物理位置，并按右侧履历节点切换焦点和视觉权重，不通过移动贴纸伪造接棒。
+- browser67 现场滚动上游在线预览后，确认其镜头语义是“贴纸近景经历 → 末个履历节点完整清晰正脸 → Works 接管后转为后脑勺”。本项目没有上游“独立开发”那条额外履历，因此改用 Groland 离场到画廊钉住的交界段回到清晰正脸，再从 Works 横移段转向后脑勺，不复制上游个人内容或精确时序。
+- `blender/sen.blend` 与 `web/public/models/me.glb` 同步维护；GLB 使用 `export_apply=True` 导出并核对贴纸曲面顶点，最终仍以 `DESIGN.md`、Blender 源和 GLB 运行产物共同约束当前结果。
+
 ## 本地保护层
 
 上游吸收时默认保护以下本项目层，不允许整体覆盖：

@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import Env from './Env'
 import { FOCUS_POINTS, FRAMES_PER_NODE } from '../data/focusPoints'
 
-const MODEL_URL = `${import.meta.env.BASE_URL}models/me.glb?v=67stickers6`
+const MODEL_URL = `${import.meta.env.BASE_URL}models/me.glb?v=67stickers34`
 
 useLoader.preload(GLTFLoader, MODEL_URL)
 
@@ -15,8 +15,22 @@ const POINTS = FOCUS_POINTS as readonly string[]
 const M = POINTS.length // 时间轴节点数（= 履历条数），从名单推导，不写死
 const RESUME_FRAMES = M * FRAMES_PER_NODE // 履历区帧数：每节点 FRAMES_PER_NODE 帧（节点 k → 第 k·50 帧）
 const WORKS_ENTRANCE = 50 // 作品区"入场"（画廊屏幕从底部滑入覆盖）占的帧数
+// CameraAction 在作品画廊钉住时完成“公司侧脸 → 清晰正脸”的回场；第 250 帧仍完整属于 Groland。
+// 之后的 300→350 帧才把人物转向 Works 的后脑勺镜头。
+const FACE_RETURN_END_FRAME = RESUME_FRAMES + WORKS_ENTRANCE
 const FPS = 24 // 所有 clip @24fps 共享时间轴；相机动画总帧数运行时从 CameraAction clip 读（见 totalFrames）
 const NODE_LINE = 0.3 // 节点"终点"参考线：条目顶部到达视口该高度(从上 30%)时锁定为该节点
+
+// 公司经历贴纸只改变材质视觉权重，不移动或缩放几何。
+// nodeIndex 对应下方连续履历索引 s：focus-3/4/5 → 2/3/4。
+const CAREER_STICKER_NODE_INDEX: Record<string, number> = {
+  sticker2: 2, // HN / 火奴
+  sticker4: 3, // SPES
+  sticker5: 4, // Groland
+}
+
+type ColorMaterial = THREE.Material & { color?: THREE.Color }
+type ControlledStickerMaterial = { material: ColorMaterial; baseColor: THREE.Color }
 
 // 上下渐变背景球（包裹相机），两端颜色可调
 function GradientBackground() {
@@ -151,10 +165,14 @@ function Man2({
   const { scene, animations } = useLoader(GLTFLoader, MODEL_URL)
 
   // 克隆模型；收集眼睛对象、聚焦锚点对象、glb 自带相机、各锚点景深开关
-  const { model, eyes, points, startPoint, glbCam, focusNode, dof } = useMemo(() => {
+  const { model, eyes, points, startPoint, glbCam, focusNode, careerStickers, dof } = useMemo(() => {
     const clone = scene.clone(true)
     const eyes: any[] = []
     const pmap: Record<string, any> = {}
+    const careerStickers: Array<{
+      nodeIndex: number
+      materials: ControlledStickerMaterial[]
+    }> = []
     let startPoint: any = null
     let glbCam: any = null
     let focusNode: any = null
@@ -162,6 +180,24 @@ function Man2({
       if (o.isMesh) {
         o.castShadow = true
         o.receiveShadow = true
+
+        const nodeIndex = CAREER_STICKER_NODE_INDEX[o.name]
+        if (nodeIndex !== undefined) {
+          const sourceMaterials = Array.isArray(o.material) ? o.material : [o.material]
+          const controlled: ControlledStickerMaterial[] = sourceMaterials.map(
+            (source: THREE.Material) => {
+              const material = source.clone() as ColorMaterial
+              return {
+                material,
+                baseColor: material.color?.clone() ?? new THREE.Color(1, 1, 1),
+              }
+            }
+          )
+          o.material = Array.isArray(o.material)
+            ? controlled.map(({ material }) => material)
+            : controlled[0].material
+          careerStickers.push({ nodeIndex, materials: controlled })
+        }
       }
       if (o.isCamera) glbCam = o
       // 首页锚点：兼容旧名 focus-start 与 intro3d 统一命名 focus-0
@@ -211,6 +247,7 @@ function Man2({
       startPoint: start,
       glbCam,
       focusNode: works,
+      careerStickers,
       dof: {
         has: hasDofParams,
         bokeh: pts.map(effBokeh),
@@ -379,12 +416,37 @@ function Man2({
 
     // 履历段用于对焦的连续索引：由平滑后的帧反推，确保对焦与镜头同步
     const s = THREE.MathUtils.clamp(frame / FRAMES_PER_NODE - 1, -1, M - 1)
+    // 履历结束后才从 Groland 贴纸焦点回到正脸；与 CameraAction 第 250→300 帧同步。
+    const faceReturnProgress = inWorks
+      ? THREE.MathUtils.smoothstep(frame, RESUME_FRAMES, FACE_RETURN_END_FRAME)
+      : 0
+
+    // 当前经历的公司 Logo 保持原色，其他公司贴纸作为路径上下文降低亮度。
+    // 权重由同一连续索引 s 驱动，节点之间平滑接棒；回到正脸时三枚 Logo 恢复原色。
+    // 不透明度和几何始终保持不变。
+    for (const sticker of careerStickers) {
+      const distance = Math.abs(s - sticker.nodeIndex)
+      const activeWeight = 1 - THREE.MathUtils.smoothstep(distance, 0.12, 0.85)
+      const experienceBrightness = THREE.MathUtils.lerp(0.52, 1, activeWeight)
+      const brightness = THREE.MathUtils.lerp(experienceBrightness, 1, faceReturnProgress)
+      for (const { material, baseColor } of sticker.materials) {
+        if (material.color) material.color.copy(baseColor).multiplyScalar(brightness)
+      }
+    }
 
     // 3) 自动对焦：作品区跟随 glb focus-works 空对象；履历区按 focus 锚点插值
     //    （在 mixer.update 之后取世界坐标，保证与当前帧一致）
     if (focusRef) {
       if (inWorks && focusNode) {
-        focusNode.getWorldPosition(focusRef.current)
+        // 不在作品区触发点瞬间跳焦：侧脸退场过程中从 Groland 锚点连续移到正脸锚点。
+        const lastPoint = points[M - 1]
+        if (lastPoint) {
+          lastPoint.getWorldPosition(posA.current)
+          focusNode.getWorldPosition(posB.current)
+          focusRef.current.lerpVectors(posA.current, posB.current, faceReturnProgress)
+        } else {
+          focusNode.getWorldPosition(focusRef.current)
+        }
       } else if (s < 0 && startPoint && points[0]) {
         startPoint.getWorldPosition(posA.current)
         points[0].getWorldPosition(posB.current)
@@ -409,7 +471,9 @@ function Man2({
         dofBokehRef.current = -1
       } else {
         const sample = (arr: number[], sv: number, wv: number): number => {
-          if (inWorks) return wv
+          if (inWorks) {
+            return THREE.MathUtils.lerp(arr[M - 1] ?? wv, wv, faceReturnProgress)
+          }
           if (s < 0) return THREE.MathUtils.lerp(sv, arr[0] ?? sv, THREE.MathUtils.clamp(s + 1, 0, 1))
           const sc = THREE.MathUtils.clamp(s, 0, M - 1)
           const iA = Math.floor(sc)
@@ -505,7 +569,7 @@ function Man2({
 }
 
 // 后处理：DepthOfField → Bloom → SMAA。
-// DoF 焦点逐帧跟随 focusRef（自动对焦）；30–220 帧间收紧清晰范围、加大虚化。
+// DoF 焦点逐帧跟随 focusRef（自动对焦）；履历节点保持聚焦，进入作品区时再逐步放宽清晰范围。
 function Post2({
   focusRef,
   frameRef,
@@ -526,7 +590,8 @@ function Post2({
     focusBokeh: 11.0,
     focusRange: 0.15,
     startBlendFrame: 48,
-    endBlendFrame: RESUME_FRAMES - 50, // 末节点附近回到"起始帧"景深档（原 250−50=200）
+    endBlendStartFrame: RESUME_FRAMES,
+    endBlendFinishFrame: FACE_RETURN_END_FRAME,
   }
 
   const dofRef = useRef<any>(null)
@@ -535,10 +600,14 @@ function Post2({
     if (!e) return
     if (e.target && focusRef) e.target.copy(focusRef.current)
     // 权重 w=1 用"开始帧档"，w=0 用"聚焦点档"。
-    // 开头(f→0)和末节点(f→RESUME_FRAMES)都取开始帧档；中间各节点取聚焦点档。
+    // 开头由宽景深收紧；五个履历节点都保持聚焦，离开末节点进入作品区后再放宽。
     const f = frameRef ? frameRef.current : 0
     const wStart = 1 - THREE.MathUtils.smoothstep(f, 0, post.startBlendFrame)
-    const wEnd = THREE.MathUtils.smoothstep(f, post.endBlendFrame, RESUME_FRAMES)
+    const wEnd = THREE.MathUtils.smoothstep(
+      f,
+      post.endBlendStartFrame,
+      post.endBlendFinishFrame
+    )
     const w = Math.max(wStart, wEnd)
     if (dofBokehRef && dofBokehRef.current >= 0) {
       // glb 自带逐锚点景深参数（intro3d 导出）：直接采用，忠实还原 intro3d 的虚化强度/清晰范围（bokeh=0 即该点关景深）。
