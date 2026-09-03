@@ -11,15 +11,15 @@ const COPY = {
   en: {
     title: 'About 67',
     paragraphs: [
-      'Talk is cheap. Taste is important. Action speaks louder.',
       'From Data Analyst to AI Builder',
+      'Talk is cheap. Taste is important. Action speaks louder.',
     ],
   },
   zh: {
     title: 'About 67',
     paragraphs: [
-      'Talk is cheap. Taste is important. Action speaks louder.',
       'From Data Analyst to AI Builder',
+      'Talk is cheap. Taste is important. Action speaks louder.',
     ],
   },
 }
