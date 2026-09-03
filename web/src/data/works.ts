@@ -60,14 +60,29 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
         tagline: 'Groland 的生意会说话',
         items: [
           {
-            name: 'DataHub',
-            meta: '活着的事实系统',
-            slug: 'datahub',
+            name: '业务看板',
+            meta: '多渠道经营洞察',
+            slug: 'trade-base',
             link: 'https://github.com/bigKING67/datahub',
           },
-          { name: '全渠道交易底座', meta: '一个数，全公司认', slug: 'trade-base' },
-          { name: 'AI 分析', meta: '人定问题，模型写判断', slug: 'ai-analysis' },
-          { name: '内容资产', meta: '素材对得上投放', slug: 'content-assets' },
+          {
+            name: 'AI 内容中台',
+            meta: '素材与直播协同',
+            slug: 'content-assets',
+            link: 'https://github.com/bigKING67/datahub',
+          },
+          {
+            name: 'AI 分析报告',
+            meta: '周期复盘与决策',
+            slug: 'ai-analysis',
+            link: 'https://github.com/bigKING67/datahub',
+          },
+          {
+            name: '样品库存管理',
+            meta: '流转全程可追踪',
+            slug: 'sample-inventory',
+            link: 'https://github.com/bigKING67/datahub',
+          },
         ],
         footer: '统一业务事实 · 看清经营变化 · 让团队更快行动',
       },
@@ -205,14 +220,29 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
         tagline: 'Groland, speaking in numbers',
         items: [
           {
-            name: 'DataHub',
-            meta: 'a living fact system',
-            slug: 'datahub',
+            name: 'Business dashboards',
+            meta: 'multi-channel insights',
+            slug: 'trade-base',
             link: 'https://github.com/bigKING67/datahub',
           },
-          { name: 'All-channel trade base', meta: 'one number the company keeps', slug: 'trade-base' },
-          { name: 'AI analysis', meta: 'humans ask, models judge', slug: 'ai-analysis' },
-          { name: 'Content assets', meta: 'creatives that match spend', slug: 'content-assets' },
+          {
+            name: 'AI content hub',
+            meta: 'assets and live content',
+            slug: 'content-assets',
+            link: 'https://github.com/bigKING67/datahub',
+          },
+          {
+            name: 'AI analysis reports',
+            meta: 'reviews and decisions',
+            slug: 'ai-analysis',
+            link: 'https://github.com/bigKING67/datahub',
+          },
+          {
+            name: 'Sample inventory',
+            meta: 'end-to-end traceability',
+            slug: 'sample-inventory',
+            link: 'https://github.com/bigKING67/datahub',
+          },
         ],
         footer: 'Unify business facts · see the business clearly · help teams act faster',
       },
@@ -335,6 +365,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
 
 // 板块配图。原作者封面不复用；缺图时左栏走编号占位。
 export const SECTION_COVERS: Record<string, string> = {
+  datahub: `${import.meta.env.BASE_URL}works/datahub/cover.webp`,
   agent: `${import.meta.env.BASE_URL}works/agent/cover.webp`,
   craft: `${import.meta.env.BASE_URL}works/craft/cover.webp`,
   trade: `${import.meta.env.BASE_URL}works/analysis/cover.webp`,

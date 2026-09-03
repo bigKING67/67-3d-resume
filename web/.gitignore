@@ -9,9 +9,27 @@ dist-ssr
 *.log
 
 # 作品媒体（视频/大图）：体积大且属个人内容，不入 git。
-# 仅保留板块封面占位图（public/works/covers/），其余媒体请自行放置或走 CDN。
+# 仅保留板块封面占位图与已审核的 DataHub / AI Craft 作品证据，其余媒体请自行放置或走 CDN。
 public/works/*
 !public/works/covers/
+!public/works/datahub/
+public/works/datahub/*
+!public/works/datahub/cover.webp
+!public/works/datahub/banner.webp
+!public/works/datahub/banner-mobile.webp
+!public/works/datahub/dashboard-redacted.webp
+!public/works/datahub/dashboard-mobile.webp
+!public/works/datahub/creator-insights-redacted.webp
+!public/works/datahub/industry-intelligence-redacted.webp
+!public/works/datahub/content-library-redacted.webp
+!public/works/datahub/content-library-mobile.webp
+!public/works/datahub/live-center-redacted.webp
+!public/works/datahub/weekly-report-redacted.webp
+!public/works/datahub/weekly-report-mobile.webp
+!public/works/datahub/monthly-report-redacted.webp
+!public/works/datahub/inventory-redacted.webp
+!public/works/datahub/inventory-mobile.webp
+!public/works/datahub/inventory-registration-redacted.webp
 !public/works/agent/
 public/works/agent/*
 !public/works/agent/cover.webp

@@ -4,6 +4,8 @@ year: 2025 – 2026
 role: AI DataHub · Groland
 tags: [Vite, Rust, PostgreSQL, Prefect]
 link: https://github.com/bigKING67/datahub
+banner: ./works/datahub/banner.webp
+bannerMobile: ./works/datahub/banner-mobile.webp
 ---
 
 不是数据中台。中台是一张表柜，DataHub 是柜台还在营业时长出来的系统。
@@ -11,6 +13,10 @@ link: https://github.com/bigKING67/datahub
 Groland 卖的是 AI 科技头皮抗衰。天猫、抖音、达人、商品卡、素材、投放——这些东西每天都在动。DataHub 把它们收成同一套事实，再让 AI 分析直接读这套事实。看板、专题、动作，不再各算各的。
 
 ## 它长什么样
+
+![Groland Dashboard，经营数据已脱敏](./works/datahub/dashboard-redacted.webp)
+
+真实经营数据已脱敏，保留指标结构、多渠道视图与产品形态，不展示具体经营数值。
 
 - Vite Web
 - Rust API
