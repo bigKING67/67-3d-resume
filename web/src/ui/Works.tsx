@@ -148,6 +148,9 @@ function WorkDetail({
       />
       <motion.div
         className="wk-detail"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="work-detail-title"
         initial={{ opacity: 0, scale: 0.985, y: 8 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.99, y: 6 }}
@@ -178,7 +181,9 @@ function WorkDetail({
 
         <article className="wk-detail-article">
           <header className="wk-detail-head">
-            <h3 className="wk-detail-title">{title}</h3>
+            <h3 className="wk-detail-title" id="work-detail-title">
+              {title}
+            </h3>
             {sub && <div className="wk-detail-sub">{sub}</div>}
             {tags && tags.length > 0 && (
               <div className="wk-detail-tags">
@@ -262,16 +267,42 @@ export default function Works({ lang, innerRef }: { lang: 'en' | 'zh'; innerRef:
   // 横移到底时「继续下滑」提示渐隐
   const hintOpacity = useTransform(scrollYProgress, [0.85, 1], [1, 0])
 
-  // 详情打开时锁滚动 + ESC 关闭
+  // 详情打开时锁滚动、把焦点移入弹层、约束 Tab，并在关闭后回到原触发点。
   useEffect(() => {
     if (!active) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setActive(null)
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const dialog = document.querySelector<HTMLElement>('.wk-detail')
+    const focusableSelector =
+      'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    const focusFirst = requestAnimationFrame(() => {
+      dialog?.querySelector<HTMLElement>(focusableSelector)?.focus()
+    })
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActive(null)
+        return
+      }
+      if (e.key !== 'Tab' || !dialog) return
+      const focusable = [...dialog.querySelectorAll<HTMLElement>(focusableSelector)]
+      if (!focusable.length) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
     window.addEventListener('keydown', onKey)
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     return () => {
+      cancelAnimationFrame(focusFirst)
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = prev
+      previousFocus?.focus()
     }
   }, [active])
 

@@ -8,7 +8,9 @@
 //   role    角色 / 担当
 //   tags    标签数组：[互动项目, 虎啸奖]
 //   link    外链（“访问作品”按钮）
-// 正文（frontmatter 之后）写 markdown：文字 / 图 ![](...) / 视频 <video src=...>。
+// 正文（frontmatter 之后）写 markdown。简单媒体可用 ![](...)；需要独立移动构图、
+// 图注或 wide / inset / pair / sequence 布局时，使用 figure / picture 原始 HTML。
+// 完整写作、证据标签和媒体规则见 ../../../docs/WORKS-STORYTELLING.md。
 //
 // 资源（图/视频）放到 public/works/ 下，用 ./works/... 相对构建路径引用。
 // 列表（works.ts 的 item）通过 `slug` 关联到此处的 md；没有 slug 的 item 仍走占位详情。

@@ -119,7 +119,8 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
         id: 'craft',
         no: '03',
         title: 'AI Craft',
-        tagline: '品味是系统，不是口号',
+        tagline: '把判断做成系统',
+        layout: 'compact',
         items: [
           {
             name: 'review-craft',
@@ -129,15 +130,33 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
           },
           {
             name: 'design-craft',
-            meta: '界面不许油腻',
+            meta: '体验不靠感觉',
             slug: 'design-craft',
             link: 'https://github.com/bigKING67/design-craft',
           },
           {
             name: 'creative-craft',
-            meta: '创意有导演，不是抽卡',
+            meta: '创意有导演',
             slug: 'creative-craft',
             link: 'https://github.com/bigKING67/creative-craft',
+          },
+          {
+            name: 'browser67',
+            meta: '真浏览器，真登录态',
+            slug: 'browser67',
+            link: 'https://github.com/bigKING67/browser67',
+          },
+          {
+            name: 'reverse-craft',
+            meta: '逆向结论可复现',
+            slug: 'reverse-craft',
+            link: 'https://github.com/bigKING67/reverse-craft',
+          },
+          {
+            name: 'money-craft',
+            meta: '投资判断有出处',
+            slug: 'money-craft',
+            link: 'https://github.com/bigKING67/money-craft',
           },
           {
             name: 'commerce-growth-os',
@@ -245,7 +264,8 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
         id: 'craft',
         no: '03',
         title: 'AI Craft',
-        tagline: 'taste as a system',
+        tagline: 'Judgment, made systematic',
+        layout: 'compact',
         items: [
           {
             name: 'review-craft',
@@ -255,15 +275,33 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
           },
           {
             name: 'design-craft',
-            meta: 'no greasy UI',
+            meta: 'experience, not guesswork',
             slug: 'design-craft',
             link: 'https://github.com/bigKING67/design-craft',
           },
           {
             name: 'creative-craft',
-            meta: 'direction, not lottery',
+            meta: 'creativity needs direction',
             slug: 'creative-craft',
             link: 'https://github.com/bigKING67/creative-craft',
+          },
+          {
+            name: 'browser67',
+            meta: 'real browser, real session',
+            slug: 'browser67',
+            link: 'https://github.com/bigKING67/browser67',
+          },
+          {
+            name: 'reverse-craft',
+            meta: 'reproducible reverse engineering',
+            slug: 'reverse-craft',
+            link: 'https://github.com/bigKING67/reverse-craft',
+          },
+          {
+            name: 'money-craft',
+            meta: 'investment judgments need sources',
+            slug: 'money-craft',
+            link: 'https://github.com/bigKING67/money-craft',
           },
           {
             name: 'commerce-growth-os',
@@ -298,6 +336,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
 // 板块配图。原作者封面不复用；缺图时左栏走编号占位。
 export const SECTION_COVERS: Record<string, string> = {
   agent: `${import.meta.env.BASE_URL}works/agent/cover.webp`,
+  craft: `${import.meta.env.BASE_URL}works/craft/cover.webp`,
   trade: `${import.meta.env.BASE_URL}works/analysis/cover.webp`,
 }
 

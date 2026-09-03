@@ -27,6 +27,9 @@ public/works/agent/*
 !public/works/agent/agent-governance-mobile.webp
 !public/works/agent/deep-research-banner.webp
 !public/works/agent/deep-research-mobile.webp
+!public/works/craft/
+public/works/craft/*
+!public/works/craft/*.webp
 !public/works/analysis/
 public/works/analysis/*
 !public/works/analysis/cover.webp

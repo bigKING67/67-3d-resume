@@ -1227,6 +1227,10 @@ canvas {
   border-color: rgba(244, 241, 234, 0.3);
   transform: rotate(90deg);
 }
+.wk-detail-close:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
 
 /* 顶部 banner：图铺满；缺省时低饱和墨绿渐变占位 + 虚字 */
 .wk-detail-banner {
@@ -1355,6 +1359,74 @@ canvas {
   border-radius: 12px;
   border: 1px solid var(--line);
 }
+.wk-md figure {
+  width: 100%;
+  margin: 1.8em 0 2.2em;
+}
+.wk-md figure > picture {
+  display: block;
+  min-width: 0;
+}
+.wk-md figure img,
+.wk-md figure video {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  transform: none;
+}
+.wk-md figcaption {
+  margin-top: 0.8em;
+  color: rgba(244, 241, 234, 0.58);
+  font-size: clamp(12px, 1.1vw, 14px);
+  line-height: 1.65;
+}
+.wk-md figcaption strong {
+  color: #ffd9b3;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+@media (min-width: 900px) {
+  .wk-md img,
+  .wk-md video {
+    width: min(960px, calc(100vw - 220px));
+    max-width: none;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+  .wk-md > figure[data-layout='wide'],
+  .wk-md > figure[data-layout='pair'],
+  .wk-md > figure[data-layout='sequence'] {
+    width: min(1080px, calc(100vw - 160px));
+    max-width: none;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+  .wk-md > figure[data-layout='inset'] {
+    width: min(760px, calc(100vw - 260px));
+    max-width: none;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.wk-md figure[data-layout='pair'],
+.wk-md figure[data-layout='sequence'] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.8vw, 22px);
+}
+.wk-md figure[data-layout='sequence'] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.wk-md figure[data-layout='pair'] figcaption,
+.wk-md figure[data-layout='sequence'] figcaption {
+  grid-column: 1 / -1;
+}
+@media (max-width: 640px) {
+  .wk-md figure[data-layout='pair'],
+  .wk-md figure[data-layout='sequence'] {
+    grid-template-columns: 1fr;
+  }
+}
 .wk-md blockquote {
   margin: 1.4em 0;
   padding: 0.2em 0 0.2em 1.1em;
@@ -1393,6 +1465,10 @@ canvas {
 .wk-detail-link:hover {
   background: rgba(255, 217, 179, 0.1);
   gap: 0.9em;
+}
+.wk-detail-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
 }
 
 /* 详情占位组件：开源版无 md 内容时，演示详情页支持的「图片/视频 + 跳转按钮」等组件 */
