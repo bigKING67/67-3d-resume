@@ -1,123 +1,190 @@
-# About Sen · 3D个人简历
+# About 67 · 3D 个人简历
 
-**简体中文** · [English](README.en.md)
+<p align="center"><strong>滚动就是运镜。把六七的简历，长在一个 3D 场景里。</strong></p>
 
-一个基于 **React Three Fiber** 的滚动式个人3D简历。
+<p align="center">
+  <a href="https://whois67.52671314.xyz/resume/">在线预览</a> |
+  <a href="#快速开始">快速开始</a> |
+  <a href="#改成你自己的">改成你自己的</a> |
+  <a href="#换人物模型">换模型</a> |
+  <a href="#教程">教程</a> |
+  <a href="#部署">部署</a> |
+  <a href="#源码-vs-零代码">源码 vs 零代码</a> |
+  <a href="README.en.md">English</a>
+</p>
 
-<h3 align="center">
-  🔗 <a href="https://dayinji.github.io/sen-3d-resume/">点击进入在线预览 →</a>
-</h3>
+这是六七的滚动式 3D 个人简历，也是一个可以继续深入阅读的作品集。页面先用人物、履历和运镜建立身份，再通过 AI DataHub、AI Team Agent、AI Craft 与 Data Analysis 说明具体做过什么、如何判断，以及证据在哪里。
 
-> 💡 **不想写代码、不想折腾环境？** 可以试试 [intro3d.com](https://intro3d.com)：一个零代码的 3D 个人主页 DIY 平台，小白也能上手，一站式解决制作与部署。相比本项目少了「眼球跟随光标」的互动，其余相对完整。想快速拥有一个类似的 3D 简历，它更省时；想完全掌控、深度定制，再用本仓库源码。
+当前仓库是 [`bigKING67/67-3d-resume`](https://github.com/bigKING67/67-3d-resume)，基于 [`dayinji/sen-3d-resume`](https://github.com/dayinji/sen-3d-resume) 选择性定制。上游提供 React Three Fiber、滚动相机、Blender 场景、教程和静态部署底座；本仓库维护六七自己的内容、模型贴图、作品媒体、视觉取舍和发布方式。上游来源与吸收记录见 [`UPSTREAM.md`](UPSTREAM.md)。
 
-## 开源说明（先读这段）
+> 在线入口已在 2026-09-02 核验为 `About 67`。该地址由下游博客仓库装配固定 revision；只 push 本仓库不会自动更新这个生产入口，详见[部署](#部署)。
 
-- **代码**采用 **MIT** 许可证，见 [`LICENSE`](LICENSE)，欢迎学习、复用、二次开发。
-- **个人内容与素材**（姓名 / 人物模型 / 简历 / 作品文案 / 品牌 logo / 社交链接）**不在 MIT 范围内**，版权归作者所有。fork 后请替换成你自己的内容，详见 [`NOTICE`](NOTICE)。
+## 项目文档
 
-## 仓库结构
+不同文档各管一层，避免把所有规则堆进 `AGENTS.md`：
 
+| 文档 | 负责什么 | 什么时候看 |
+| --- | --- | --- |
+| [`README.md`](README.md) / [`README.en.md`](README.en.md) | 项目入口、上手、改造、教程与部署路径 | 第一次进入仓库 |
+| [`PRODUCT.md`](PRODUCT.md) | 产品定位、访问者问题、内容真实性与成功标准 | 改内容架构或作品叙事前 |
+| [`DESIGN.md`](DESIGN.md) | 视觉系统、3D、贴纸、作品媒体与响应式合同 | 改视觉、模型或交互前 |
+| [`docs/WORKS-STORYTELLING.md`](docs/WORKS-STORYTELLING.md) | 作品写法、媒体选择、图文版式、真实性和响应式规则 | 做作品详情与配图时 |
+| [`docs/AI-CRAFT-CONTENT-PLAN.md`](docs/AI-CRAFT-CONTENT-PLAN.md) | 七个 AI Craft 的事实来源、主张和媒体候选账本 | 改 AI Craft 详情前 |
+| [`docs/3D-WORKFLOW.md`](docs/3D-WORKFLOW.md) | 模型、贴纸、眼睛、相机、导出与真实页面验收路线 | 改 3D 或 GLB 前 |
+| [`UPSTREAM.md`](UPSTREAM.md) | 上游 SHA、来源、选择性吸收与保护边界 | 对照或吸收上游时 |
+| [`AGENTS.md`](AGENTS.md) | 代理实现、验证、Git 与发布边界 | 让 AI/Codex 修改项目时 |
+| [`CLAUDE.md`](CLAUDE.md) | 上游技术说明 | 需要理解原始实现时，内容以本仓库现场为准 |
+
+## 快速开始
+
+环境要求：Node.js `^20.19.0 || >=22.12.0`。
+
+```bash
+git clone https://github.com/bigKING67/67-3d-resume.git
+cd 67-3d-resume/web
+npm ci
+npm run dev
 ```
-web/       前端应用（React Three Fiber + TypeScript，见下文）
-blender/   场景三维源文件 sen.blend（人物 + 相机动画 + 对焦锚点）
-tutor/     改造教程（部署、贴纸等）
-CLAUDE.md AGENTS.md          面向 AI 编码助手的协作约定
-README.md README.en.md       说明（简体中文 / English）
-LICENSE NOTICE               许可与内容声明
+
+开发地址默认为 [`http://localhost:5173`](http://localhost:5173)。所有 npm 命令都在 [`web/`](web) 下运行：
+
+```bash
+npm run typecheck  # TypeScript
+npm run lint       # ESLint
+npm run render:craft-pilot-sources # 重建两篇 AI Craft 试点的 SVG 设计源
+npm run validate:works # 作品字段、链接与媒体合同
+npm run build      # 类型检查 + Vite 构建，输出 web/dist/
+npm run check      # lint + 作品校验 + build
+npm run preview    # 预览构建产物
 ```
 
-前端应用整个在 [`web/`](web) 下。**下文提到的代码 / 资源路径都相对 `web/`**（如 `src/App.tsx` 即 `web/src/App.tsx`），npm 命令也在 `web/` 里执行。
+当前没有独立测试套件。涉及可见 UI、GLB 或作品媒体时，构建通过后仍需在真实浏览器检查桌面和约 390px 的窄视口；静态检查不能证明 3D 画面、裁切或滚动运镜正确。
 
-## 运行
+## 改成你自己的
+
+本仓库当前是六七的个人版本。若要继续维护这个版本，或 fork 成另一个人的版本，按内容层级修改：
+
+| 想改什么 | 真源 |
+| --- | --- |
+| 产品定位、读者要理解的问题 | [`PRODUCT.md`](PRODUCT.md) |
+| 视觉语言、贴纸、媒体和响应式规则 | [`DESIGN.md`](DESIGN.md) |
+| 首屏 About 文案 | `web/src/App.tsx` 中的 `COPY` |
+| 学历、经历、客户与社交入口 | `web/src/ui/Resume.tsx` |
+| 作品栏目、项目名、摘要和外链 | `web/src/data/works.ts` |
+| 单个作品详情 | `web/src/content/works/<slug>.md` |
+| 作品详情字段与 Markdown 解析 | `web/src/data/workDocs.ts` |
+| 作品封面、Hero 与正文媒体 | `web/public/works/`，规范见 [`docs/WORKS-STORYTELLING.md`](docs/WORKS-STORYTELLING.md) |
+| 3D 场景、相机与后期 | `web/src/scene/Scene.tsx` |
+| 人物与贴纸的可编辑源 / 运行产物 | `blender/sen.blend` / `web/public/models/me.glb` |
+| 3D 修改、导出与验收步骤 | [`docs/3D-WORKFLOW.md`](docs/3D-WORKFLOW.md) |
+
+作品不是“填一个标题、配一张通用图”就结束。重点详情应让人看懂项目对象、问题、本人职责、关键判断、实现、证明与边界；正文媒体数量由重要主张和可用证据决定，不套固定三图模板。栏目封面、项目 Hero 与正文媒体承担不同任务，不应用同一张图反复裁切。
+
+媒体路径使用 `./works/...` 等相对构建路径，或通过 `import.meta.env.BASE_URL` 解析。不要写只在域名根目录 `/` 下成立的资源路径，否则部署到 `/resume/` 会失效。
+
+## 换人物模型
+
+`blender/sen.blend` 是可编辑源，`web/public/models/me.glb` 是浏览器运行产物。完整修改要同步维护两者；只替换 GLB 属于临时候选，不能算源文件已经交付。
+
+运行时代码按名称查找这些对象：
+
+| GLB 合同 | 作用 |
+| --- | --- |
+| 相机与名为 `CameraAction` 的动画 clip | 滚动驱动的镜头路径 |
+| `focus-start` 或 `focus-0` | 首屏对焦锚点 |
+| `web/src/data/focusPoints.ts` 列出的焦点空对象 | 履历节点与相机停靠点 |
+| `focus-works` | 作品区对焦锚点；缺省时复用最后一个履历锚点 |
+| 名称包含 `eye` 的网格 | 眼球跟随 |
+
+贴纸面片必须保留已经贴合脸部的曲面顶点。若重新使用 Blender `Shrinkwrap`，导出 GLB 时必须启用 **Apply Modifiers**（自动化导出对应 `export_apply=True`），或先可靠烘焙结果，否则导出的平面可能与脸部相交。更新 `me.glb` 后还要提高 `web/src/scene/Scene.tsx` 中的模型查询参数，失效旧缓存。
+
+## 教程
+
+[`tutor/`](tutor) 保留上游面向使用者的通用教程，适合学习机制或制作自己的 fork：
+
+| 教程 | 内容 | 本项目边界 |
+| --- | --- | --- |
+| [用 intro3d 处理模型](tutor/intro3d处理模型教程/intro3d处理模型教程.md) | 在浏览器中处理模型并导出 `me.glb` | 导出后仍要满足本仓库的 GLB 命名、相机与源文件同步合同 |
+| [眼球跟随](tutor/眼球教程/眼球教程.md) | 眼睛跟随光标的实现和换模连接方法 | 需用当前 `Scene.tsx` 与真实 GLB 复核 |
+| [AI 贴纸包](tutor/贴纸教程/贴纸教程.md) | 生成透明贴纸并放入场景 | 还要遵守 `DESIGN.md` 的品牌、来源和可见性规则 |
+| [部署到 GitHub Pages](tutor/部署教程/1-部署到-GitHub-Pages.md) | 通用 fork 的 GitHub Pages 发布流程 | 不代表 `whois67` 生产入口的真实发布链路 |
+| [部署到 Cloudflare Pages](tutor/部署教程/2-部署到-Cloudflare-Pages.md) | 通用 fork 的 Cloudflare Pages 流程 | 六七的生产入口由博客仓库装配，见下节 |
+
+这些教程来自上游底座，只作参考，不自动覆盖本仓库的 `AGENTS.md`、`DESIGN.md`、依赖版本、个人内容或部署决策。
+
+## 部署
+
+本地静态构建：
 
 ```bash
 cd web
-npm install
-npm run dev        # 开发 http://localhost:5173
-npm run build      # 类型检查 + 打包，产物输出到 dist/
-npm run preview    # 预览 build 产物
-npm run typecheck  # 仅类型检查（tsc -b）
-npm run lint       # ESLint
+npm ci
+npm run build
 ```
 
-## 架构总览
+`web/vite.config.ts` 保持 `base: './'`，因此 HTML、JS、字体、HDR、GLB 和作品媒体可以装配到 `/resume/` 等子目录。本仓库也保留 [GitHub Pages workflow](.github/workflows/deploy.yml)，可用于该仓库自己的 Pages 站点。
 
-纯前端 SPA，无后端、无路由：`index.html` → `src/main.tsx` → `src/App.tsx`（一个固定 `<Canvas>` 3D 背景 + 可滚动 HTML 叠层）。
+六七的生产入口是 [`https://whois67.52671314.xyz/resume/`](https://whois67.52671314.xyz/resume/)，真实发布由独立博客仓库消费固定的 40 位简历 commit SHA：
 
-- **3D 背景**：`App.tsx` 里当前渲染的是 `src/scene/Scene.tsx`（`me.glb` 人物 + 滚动驱动的相机 / 眼睛跟随）。
-- **滚动内容**：`Hero`（About，`App.tsx` 内）→ `src/ui/Resume.tsx`（履历时间轴）→ `src/ui/Works.tsx`（作品集横向画廊）。
-- **叠层效果**：`LoadingScreen`（加载遮罩）、`NoiseOverlay`（胶片噪点）、滚动渐暗 / 磨砂右轨 / 首屏装饰画框等。
-- **全局状态**：`src/store.ts`（zustand，轻量）。
-
-## 数据驱动：改内容改哪里
-
-整个站点内容与表现分离，改内容基本只动数据文件：
-
-| 想改什么 | 改哪里 |
-| --- | --- |
-| 履历（学历 / 经历 / 客户 / 社交链接） | `src/ui/Resume.tsx` |
-| 作品集板块与作品列表 | `src/data/works.ts` |
-| 单个作品的详情正文 | `src/content/works/<slug>.md`（frontmatter + markdown；格式见 `src/data/workDocs.ts`，示例见 `src/content/works/example.md`） |
-| 首屏 About 文案 | `src/App.tsx` 里的 `COPY` |
-
-作品详情用极简 markdown：每个作品一个 `.md`，通过 `works.ts` 里 item 的 `slug` 关联；没有 `slug` 的作品走占位详情。媒体（图 / 视频）放 `public/works/` 下，用 `/works/...` 绝对路径引用。
-
-## 目录结构
-
-```
-web/                     前端应用（以下路径都在 web/ 下）
-  src/
-    App.tsx              Canvas + 滚动内容装配、首屏 About、加载/叠层
-    main.tsx             入口
-    store.ts             全局交互状态（zustand）
-    data/
-      works.ts           作品集板块 / 作品列表（作品集数据源）
-      workDocs.ts        构建期内联 content/works/*.md + frontmatter 解析
-    content/works/       作品详情 markdown；含 example.md 模板。放入 <slug>.md（slug 对应 works.ts）即渲染完整详情，否则显示统一占位
-    scene/
-      Scene.tsx          3D 场景：me.glb 人物 + glb 相机动画 + 滚动驱动 / 眼睛跟随
-      Env.tsx            env.hdr 环境光照（IBL）
-    ui/
-      Resume.tsx         履历时间轴（含个人数据）
-      Works.tsx          作品集横向画廊 + 详情弹窗
-      LoadingScreen.tsx / NoiseOverlay.tsx / SocialIcons.tsx / ZooopLogo.tsx
-  public/
-    models/  fonts/  images/  textures/   静态素材
-  scripts/compress-media.sh                媒体压缩脚本（ffmpeg，原地压缩）
-blender/sen.blend        场景三维源文件（改完导出 web/public/models/me.glb）
-tutor/                   改造教程（部署、贴纸等）
+```text
+简历验证
+  → 简历 scoped commit
+  → 简历 push / 远端一致
+  → 博客推进 resume.lock.json
+  → 博客 pnpm build:pages
+  → 博客 scoped commit / push
+  → Pages 与自定义域名验证
 ```
 
-## 素材与媒体（重要）
+`commit`、`push`、推进 lock、部署和回滚是不同授权层。具体证据、回执与回滚合同以 [`AGENTS.md`](AGENTS.md) 为准；本地 `npm run build` 成功不等于生产已更新。
 
-- **作品详情默认是占位。** 开源版本不含作者的作品详情与媒体：作品集画廊保留各板块 / 作品**标题**，点开详情页统一显示占位文案（改 `works.ts` 的 `detailPlaceholder`）。想填充某个作品，在 `src/content/works/<slug>.md`（slug 对应 `works.ts` 里 item 的 `slug`）写 frontmatter + markdown，媒体放 `public/works/` 下用 `/works/...` 引用，即自动渲染成完整详情。
-- **`public/works/` 默认不入 git**（体积大且属个人内容，见 `.gitignore`）——仅保留 4 张板块封面图 `public/works/covers/*.jpg`；其余媒体请自行放置或走 CDN。
-- `public/models/`、`public/images/`、`public/textures/`、`public/fonts/` 里的素材已入库。其中人物模型、品牌 logo、图片属于个人内容（见 `NOTICE`）；字体 / HDR 为第三方素材，复用前请各自核对许可。
-- `scripts/compress-media.sh` 用 ffmpeg 原地压缩 `public` 下的图 / 视频（最大宽 1920，视频 H.264 ~2Mbps），仅当压得更小才覆盖。
+## 源码 vs 零代码
 
-## 换人物模型（glb 约定）
+上游把 [intro3d](https://intro3d.com/) 作为零代码路径和模型处理工具。本项目选择源码路线，因为它需要自定义内容结构、滚动相机、作品详情、证据媒体、子目录部署和跨仓发布合同。两条路径可以组合：在可视化工具里处理或导出模型，再回到本仓库满足 GLB 与内容合同。
 
-想换成你自己的人物，替换 `public/models/me.glb`（源文件是仓库根的 `blender/sen.blend`，在 Blender 里改完导出 glb 覆盖它），或改写 `src/scene/Scene.tsx` 用你自己的场景。代码按**对象名字**在 glb 里查找以下内容，缺哪个对应功能就失效：
+| | 本仓库源码 | 零代码 / 可视化工具 |
+| --- | --- | --- |
+| 适合 | 要完全控制结构、交互、资产与发布的人 | 想先用界面快速制作的人 |
+| 可改范围 | React、Three.js、GLB、内容、样式和构建链 | 以工具当前提供的能力为准 |
+| 维护责任 | 自己管理依赖、源文件、验证和部署 | 依赖工具的当前功能与服务条款 |
+| 本项目用法 | 最终运行与发布真源 | 可作为模型制作或早期原型参考 |
 
-- **相机 + 相机动画 clip（名为 `CameraAction`）** —— 滚动驱动的镜头路径；总帧数运行时按 24fps 从 clip 读取，不写死。
-- **`focus-start`**（或 `focus-0`）—— 首页对焦锚点（空对象），两种命名都认。
-- **时间轴对焦锚点**（空对象，每条履历一个）—— 顺序列在 **`src/data/focusPoints.ts`** 的 `FOCUS_POINTS`（`Scene.tsx` 与 `Resume.tsx` 共用的唯一真源）。**条数是动态的**：同时增删这里与 `Resume.tsx` 的 entries，节点数与帧区间会自动适配。本仓库自带 `focus-1 / focus-2 / focus-3 / focus-4 / focus-5`（首页锚点另用 `focus-0`）。
-- **`focus-works`** —— 作品区对焦锚点（空对象）；可选，缺省时作品区自动复用末时间轴锚点。
-- **名字含 `eye` 的网格** —— 眼睛（眼睛跟随鼠标）。
-- **相机帧约定**（做 `CameraAction` 动画时遵循）：第 `0` 帧=首页(`focus-start`)、第 `50·k` 帧=第 k 个时间轴节点、**最后一帧**=作品区(`focus-works`)。即节点间隔 50 帧，最后节点到末帧是作品区帧段（可长可短）。
+外部工具的功能、价格、数据处理和服务条款可能变化，使用前以其当前官方说明为准。
 
-## 构建与部署
+## 工作原理
 
-```bash
-npm run build    # → dist/
+这是一个无业务后端的 React SPA：`web/index.html` → `web/src/main.tsx` → `web/src/App.tsx`。页面由固定的 React Three Fiber `<Canvas>` 和可滚动 HTML 内容叠层组成：
+
+- `web/src/scene/Scene.tsx` 加载 `me.glb`，驱动相机动画、焦点、眼球和后期效果；
+- `web/src/ui/Resume.tsx` 渲染履历；
+- `web/src/ui/Works.tsx` 渲染作品栏目与详情弹层；
+- `web/src/content/works/*.md` 提供项目正文；
+- `web/src/store.ts` 管理轻量交互状态。
+
+## 仓库结构
+
+```text
+web/                        React 18 + TypeScript + Vite 前端
+  src/App.tsx               首屏、Canvas 与页面装配
+  src/scene/                Three.js 场景、环境光与相机逻辑
+  src/ui/                   履历、作品、加载与叠层 UI
+  src/data/                 作品与焦点数据
+  src/content/works/        作品详情 Markdown
+  public/works/             已审核作品媒体与本地未跟踪素材
+  public/models/me.glb      浏览器运行模型
+blender/sen.blend           可编辑 3D 源
+tutor/                      上游通用改造教程
+docs/                       本项目内容与媒体规范
+PRODUCT.md / DESIGN.md      产品与视觉权威
+AGENTS.md / UPSTREAM.md     代理规则与上游记录
 ```
 
-`vite.config.ts` 里 `base: './'`，产物用相对路径，`dist/` 可直接双击打开、也可放到任意子目录（如部署到 `example.com/portfolio/`）。运行时 public 资源用 `import.meta.env.BASE_URL` 拼接。部署就是把 `dist/` 传到任意静态托管（Netlify / Vercel / GitHub Pages / 对象存储 / 自有服务器）即可。
+## 许可与内容边界
 
-## 场景参数
-
-场景所有可调参数（灯光 / 相机 / 景深 / Bloom / 人物位置 / 背景渐变色等）都是 `src/scene/Scene.tsx` 里各组件顶部的**普通常量**。想改画面默认表现，直接改这些常量的值即可，无需任何面板或额外配置文件。
+- 继承的代码按 [`LICENSE`](LICENSE) 中的 MIT 许可证使用。
+- 上游个人资产、本项目个人内容、人物/贴纸、作品媒体和第三方品牌并不会因为代码开源自动进入 MIT；具体边界与来源见 [`NOTICE`](NOTICE) 和 [`UPSTREAM.md`](UPSTREAM.md)。
+- fork 时应替换姓名、简历、社交链接、人物模型、作品文案、媒体和未经授权的品牌素材，并自行核对字体、HDR 与其他第三方资源许可。
 
 ## 技术栈
 
-React 18 · TypeScript · @react-three/fiber · @react-three/drei · @react-three/postprocessing · three · framer-motion · zustand · Vite
+React 18 · TypeScript · React Three Fiber · Three.js · React Three Postprocessing · Framer Motion · Zustand · Vite

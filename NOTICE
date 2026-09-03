@@ -1,49 +1,62 @@
-# NOTICE — What is and isn't covered by the MIT License
+# NOTICE — Code, personal content, and asset boundaries
 
-This repository is open-sourced so others can learn from and reuse the **code**
-that builds the scene (the React Three Fiber setup, components, scroll-driven
-camera, post-processing, etc.). That code is under the MIT License (see `LICENSE`).
+This repository is a personalized fork of
+[`dayinji/sen-3d-resume`](https://github.com/dayinji/sen-3d-resume). The inherited
+**code** is available under the MIT License in `LICENSE`. The MIT grant does not
+automatically cover personal content, likenesses, media, or third-party assets.
 
-The repository is also a real personal portfolio. The **personal content and
-assets** below are © 2026 Sen Zheng (SEN), all rights reserved. They are **not**
-licensed under MIT and may not be reused, redistributed, or repurposed without
-permission — please replace them with your own if you fork this project.
+The current repository combines upstream foundations, local adaptations, and
+third-party marks. Do not assume that an asset is reusable merely because it is
+stored beside MIT-licensed code. Provenance and absorption records live in
+`UPSTREAM.md`; this notice does not replace checking the original source terms.
 
-## Not covered by MIT (personal content — do not reuse)
+## Not automatically covered by MIT
 
-- **Name & likeness** — "Sen" / "SEN" / "Sen Zheng 郑越升", the 3D character
-  model depicting the author `web/public/models/me.glb`, and its Blender source
-  `blender/sen.blend`.
-- **Résumé data** — education, employers, clients, roles, and follower counts in
-  `web/src/ui/Resume.tsx`.
-- **Work content** — titles, descriptions, and write-ups in
-  `web/src/data/works.ts`, `web/src/data/workDocs.ts`, and `web/src/content/works/*.md`.
-- **Brand logos & images** — `web/public/images/*` (Bad Printer Studio, HOTSAR,
-  「小郑还挺忙」), and the ZOOOP wordmark in `web/src/ui/ZooopLogo.tsx`. These belong
-  to their respective owners.
-- **Social profile links** in `web/src/ui/Resume.tsx`.
+- **Upstream personal assets and likeness** — any remaining or adapted character
+  model, Blender source, texture, composition, résumé copy, or work media derived
+  from the upstream author's personal portfolio retains the upstream boundary.
+- **This fork's personal content** — the name and identity "67" / "sixseven",
+  résumé data, social links, project descriptions, work write-ups, and original
+  media in `web/src/` and `web/public/works/` are personal portfolio content.
+- **AI Craft portfolio media** — the project-specific Hero scenes under
+  `web/public/works/craft/` were generated for this fork without upstream source
+  images; the labeled value, system, and evidence boards were deterministically
+  rendered from this repository's own project descriptions. They are not
+  upstream portfolio assets and remain part of this fork's personal content.
+- **Character and sticker artifacts** — `web/public/models/me.glb`,
+  `blender/sen.blend`, embedded textures, and locally adapted stickers may combine
+  upstream, local, and third-party material. Treat them as non-reusable unless the
+  relevant rights are independently confirmed.
+- **Brand names, logos, and app icons** — marks belonging to employers, clients,
+  products, OpenAI, Anthropic, and other third parties remain the property of
+  their respective owners. Their presence is not a sublicense.
 
 ## Third-party assets — verify their own licenses before reuse
 
-These are not the author's to sublicense; confirm each source's terms before
-redistributing:
+These are not the repository owner's to sublicense; confirm each source's terms
+before redistributing:
 
-- **Fonts** — `web/public/fonts/` Cormorant Upright and Mansalva (Google Fonts,
-  SIL Open Font License). Bundled per the OFL; keep their licenses if you ship them.
+- **Fonts** — files under `web/public/fonts/`. Retain all applicable font
+  licenses and attribution.
 - **`web/public/textures/env.hdr`** — HDR environment map. Confirm the source's
   license before reuse.
+- **Company and product marks** — verify the original owner's terms and use only
+  as permitted.
 
 ---
 
 ## 简要说明（中文）
 
-本仓库开源的是**构建场景的代码**（MIT，见 `LICENSE`），欢迎学习与复用。
+本仓库基于 `dayinji/sen-3d-resume` 定制。继承代码按 `LICENSE` 中的 MIT
+许可证使用，但 MIT 不会自动覆盖与代码一同存放的个人内容、人物形象、作品媒体或
+第三方素材。
 
-但仓库同时是作者本人的作品集，以下**个人内容与素材**版权归 Sen Zheng（SEN）所有，
-**不在 MIT 授权范围内**，请勿直接复用——fork 后请替换为你自己的内容：
+- 上游作者的个人人物、模型、贴图、履历、作品与视觉资产继续受上游边界约束；
+- 本项目的「67 / sixseven」身份、履历、社交链接、项目文案与自有媒体属于个人作品内容；
+- `web/public/works/craft/` 的项目 Hero 为本项目单独生成，价值、系统与证据板则按本仓库文案确定性排版；它们未复制上游作品媒体，仍属于本 fork 的个人作品内容；
+- `me.glb`、`sen.blend`、内嵌贴图和贴纸可能混合上游、本地及第三方来源，未经逐项确认不要复用；
+- 公司、客户、产品和工具的名称、Logo 与 app icon 归各自权利人所有，展示不构成转授权；
+- 字体、HDR 等第三方资源请核对各自原始许可后再分发。
 
-- 姓名与肖像：「SEN / Sen Zheng 郑越升」、人物模型 `web/public/models/me.glb` 及其 Blender 源 `blender/sen.blend`
-- 简历数据（`web/src/ui/Resume.tsx`）、作品文案（`web/src/data/works.ts`、`web/src/content/works/*.md`）
-- 品牌 logo 与图片（`web/public/images/*`、ZOOOP 字标），及社交主页链接
-
-字体、HDR 等第三方素材请各自核对其原始许可后再分发。
+具体上游 SHA、吸收分类和素材来源记录见 `UPSTREAM.md`。fork 时请替换姓名、简历、
+社交链接、人物模型、作品文案、媒体和未经授权的品牌素材。
